@@ -3,6 +3,7 @@ import { SignUpDto } from '../models/sign-up.dto';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { SignInDto } from '../models/sign-in.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -12,8 +13,8 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.OK)
     @Post('sign-in')
-    public signIn(@Request() request: any) {
-        return this.authService.signIn(request.user);
+    public signIn(@Body() signInDto: SignInDto) {
+        return this.authService.signIn(signInDto);
     }
 
     @UseGuards(LocalAuthGuard)

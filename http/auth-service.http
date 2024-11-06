@@ -19,6 +19,6 @@ content-type: application/json
 ###
 
 GET http://localhost:3000/auth/profile HTTP/1.1
-Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MzA5MzE0OTEsImV4cCI6MTczMDkzMTczMX0.flUY_qkl8Pn8fMIsWqyvtyDjbtbhDvYrNuhQDDZAIvc"
+Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG4iLCJzdWIiOjEsImlhdCI6MTczMDkzMjMxNCwiZXhwIjoxNzMwOTMyNTU0fQ.Y5vrR81WSCvXTBEdSfrxJv6g60GavnN-2F8qvZugF0A"
 
 ###
