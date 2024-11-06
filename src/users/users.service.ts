@@ -9,6 +9,7 @@ export class UsersService {
         {
             id: 1,
             name: 'John',
+            email: 'john@example.com',
             password: 'test',
             roles: [Role.Admin, Role.User],
             createdAt: new Date(),
@@ -17,6 +18,7 @@ export class UsersService {
         {
             id: 2,
             name: 'Maria',
+            email: 'maria@example.com',
             password: 'guess',
             roles: [Role.User],
             createdAt: new Date(),
