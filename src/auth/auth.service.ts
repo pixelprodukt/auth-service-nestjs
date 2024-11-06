@@ -11,12 +11,12 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) { }
 
-    public async signIn(signInDto: SignInDto): Promise<{ access_token: string }> {
-        const user = await this.usersService.findOne(signInDto.username);
+    public async signIn(user): Promise<{ access_token: string }> {
+        /* const user = await this.usersService.findOne(signInDto.username);
 
         if (!user) {
             throw new UnauthorizedException();
-        }
+        } */
 
         const payload = { username: user.name, sub: user.id };
         console.log('payload: ', payload);

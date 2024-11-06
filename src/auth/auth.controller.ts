@@ -13,8 +13,9 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.OK)
     @Post('sign-in')
-    public signIn(@Body() signInDto: SignInDto) {
-        return this.authService.signIn(signInDto);
+    public signIn(@Request() req) {
+        console.log('request user: ', req.user);
+        return this.authService.signIn(req.user);
     }
 
     @UseGuards(LocalAuthGuard)
