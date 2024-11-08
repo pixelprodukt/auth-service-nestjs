@@ -8,6 +8,8 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { JwtStrategy } from './jwt.strategy';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserEntity } from '../entities/user.entity';
 
 @Module({
     imports: [

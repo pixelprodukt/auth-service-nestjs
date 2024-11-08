@@ -4,6 +4,7 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { SignInDto } from '../models/sign-in.dto';
+import { UserEntity } from '../entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
