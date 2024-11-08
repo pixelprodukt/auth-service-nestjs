@@ -9,10 +9,12 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
         super();
     }
 
-    public async validate(username: string, password: string): Promise<any> {
-        console.log('username: ', username);
+    // in the post request body, it has to be named 'username' even though it's an email. 
+    // Otherwise, passport won't parse the credentials.
+    public async validate(email: string, password: string): Promise<any> {
+        console.log('email: ', email);
         console.log('password: ', password);
-        const user = await this.authService.validateUser(username, password);
+        const user = await this.authService.validateUser(email, password);
         console.log('user from validate: ', user);
         if (!user) {
             throw new UnauthorizedException();

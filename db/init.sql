@@ -34,7 +34,7 @@ INSERT INTO users (name, email, password, created_at, updated_at)
 VALUES 
     ('John Doe', 'john.doe@example.com', crypt('password123', gen_salt('bf')), NOW(), NOW()),
     ('Jane Smith', 'jane.smith@example.com', crypt('securepass456', gen_salt('bf')), NOW(), NOW()),
-    (NULL, 'alex.jones@example.com', crypt('pass789', gen_salt('bf')), NOW(), NOW()),
+    (NULL, 'alex.jones@example.com', crypt('pass789', gen_salt('bf', 10)), NOW(), NOW()),
     ('Emily Brown', 'emily.brown@example.com', crypt('mypassword101', gen_salt('bf')), NOW(), NOW());
 
 -- connect some users to a role

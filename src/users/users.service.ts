@@ -29,7 +29,7 @@ export class UsersService {
         }
     ]; */
 
-    async findOne(id: string): Promise<UserEntity | null> {
-        return this.usersRepository.findOneBy({ id });
+    async findOneByEmail(email: string): Promise<UserEntity | null> {
+        return this.usersRepository.findOneBy({ email });
     }
 }
