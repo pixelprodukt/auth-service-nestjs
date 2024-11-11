@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../entities/user.entity';
-import { Repository } from 'typeorm';
-import { SignUpDto } from 'src/models/dtos/sign-up.dto';
-import { UserAlreadyExistsException } from 'src/exceptions/user-already-exits.exception';
 import { RoleEntity } from 'src/entities/role.entity';
+import { SignUpDto } from 'src/models/dtos/sign-up.dto';
+import { Repository } from 'typeorm';
+import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -19,10 +18,17 @@ export class UsersService {
     }
 
     public async signUp(newUser: SignUpDto) {
-        const alreadyExistingUser = this.usersRepository.findOneBy({ email: newUser.username });
+        
+        const alreadyExistingUser = await this.usersRepository.findOneBy({ email: newUser.username });
+        console.log('alreadyExistingUser', alreadyExistingUser);
+        
         if (alreadyExistingUser) {
-            throw new UserAlreadyExistsException();
+            throw new Error('User already exists');
         }
-        this.usersRepository.create(newUser)
+
+        const roles = await this.rolesRepository.find();
+        console.log('roles', roles);
+        
+        // const newCreatedUser = this.usersRepository.create(newUser);
     }
 }

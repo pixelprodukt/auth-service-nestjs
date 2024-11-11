@@ -12,14 +12,14 @@ POST http://localhost:3000/auth/sign-up HTTP/1.1
 content-type: application/json
 
 {
-    "username": "John",
+    "username": "harry.weinfurth@example.com",
     "password": "test"
 }
 
 ###
 
 GET http://localhost:3000/auth/profile HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG4iLCJzdWIiOjEsImlhdCI6MTczMDkzNDA5NCwiZXhwIjoxNzMwOTM0MzM0fQ.nlki0nSEfd0nGONNa3mP2TAbVDCHtuBx4E6ki6fL6DY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwic3ViIjoiYjU3MmQyY2UtMzU3Yy00NjBiLThiZjYtNzk3YWRiN2ZiNDJjIiwiaWF0IjoxNzMxMzM5Nzg2LCJleHAiOjE3MzEzNDAwMjZ9.un_IXea6Y56JFy0u1UkNNW4FjqoqMP3h8iwmcRmag3I
 
 ###
 
