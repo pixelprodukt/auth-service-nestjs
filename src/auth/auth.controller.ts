@@ -1,15 +1,18 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
-import { SignUpDto } from '../models/sign-up.dto';
+import { SignUpDto } from '../models/dtos/sign-up.dto';
 import { AuthService } from './auth.service';
-import { LocalAuthGuard } from './local-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { SignInDto } from '../models/sign-in.dto';
-import { UserEntity } from '../entities/user.entity';
+import { LocalAuthGuard } from './local-auth.guard';
+import { SignUpRequest } from 'src/models/requests/sign-up.request';
+import { UsersService } from 'src/users/users.service';
 
 @Controller('auth')
 export class AuthController {
 
-    constructor(private readonly authService: AuthService) { }
+    constructor(
+        private readonly authService: AuthService,
+        private readonly userService: UsersService
+    ) { }
 
     @UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.OK)
@@ -19,11 +22,12 @@ export class AuthController {
         return this.authService.signIn(req.user);
     }
 
-    @UseGuards(LocalAuthGuard)
-    @HttpCode(HttpStatus.OK)
+    //@UseGuards(LocalAuthGuard)
+    @HttpCode(HttpStatus.CREATED)
     @Post('sign-up')
-    public register(@Body() signUpDto: SignUpDto): String {
-        return `You successfully registered with username: ${signUpDto.username} and password: ${signUpDto.password}`;
+    public signUp(@Body() signUpRequest: SignUpRequest): void {
+        const signUpDto: SignUpDto = {...signUpRequest};
+        const newUser = this.userService.signUp(signUpDto);
     }
 
     // just for testing purpose
