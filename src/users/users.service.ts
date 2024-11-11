@@ -1,9 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { RoleEntity } from 'src/entities/role.entity';
 import { SignUpDto } from 'src/models/dtos/sign-up.dto';
 import { Repository } from 'typeorm';
 import { UserEntity } from '../entities/user.entity';
+import { UserAlreadyExistsException } from '../exceptions/user-already-exits.exception';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -17,18 +19,21 @@ export class UsersService {
         return this.usersRepository.findOneBy({ email });
     }
 
-    public async signUp(newUser: SignUpDto) {
+    public async signUp(signUpDto: SignUpDto): Promise<void> {
         
-        const alreadyExistingUser = await this.usersRepository.findOneBy({ email: newUser.username });
-        console.log('alreadyExistingUser', alreadyExistingUser);
+        const alreadyExistingUser = await this.usersRepository.findOneBy({ email: signUpDto.username });
         
         if (alreadyExistingUser) {
-            throw new Error('User already exists');
+            throw new UserAlreadyExistsException();
         }
 
         const roles = await this.rolesRepository.find();
-        console.log('roles', roles);
+
+        const userEntity: UserEntity = new UserEntity();
+        userEntity.email = signUpDto.username;
+        userEntity.password = await bcrypt.hash(signUpDto.password, 10);
+        userEntity.roles = [roles.find(role => role.name === 'USER')];
         
-        // const newCreatedUser = this.usersRepository.create(newUser);
+        this.usersRepository.save(userEntity);
     }
 }

@@ -1,10 +1,18 @@
 ## Setup docker container
 
-Start docker container for the postgres database with some seeded data
+Start the docker container for the postgres database. The init script will create the tables and seed them with some test data.
 
 ```bash
 $ docker compose up
 ```
+
+Docker will also start an instance of Adminer (https://www.adminer.org/de/) under http://localhost:8080. Select `PostgreSQL`, credentials are:
+```
+user: admin
+password: admin
+database: auth-database
+```
+
 
 ## Compile and run the project
 
@@ -25,7 +33,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Run tests
+## Run tests (there are not tests at the moment)
 
 ```bash
 # unit tests
@@ -38,20 +46,10 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## http Folder
+If you are using vs code as your editor, you can just install the Rest Client extension from the [marketplace](https://marketplace.visualstudio.com/items?itemName=humao.rest-client). In the http file are some example requests to test the api manually. If you're using intellij, chances are good that you can use the file out of the box.
+
 From the original readme:
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
 ## Resources
 
 Check out a few resources that may come in handy when working with NestJS:

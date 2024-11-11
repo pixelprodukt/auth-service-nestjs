@@ -5,6 +5,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { LocalAuthGuard } from './local-auth.guard';
 import { SignUpRequest } from 'src/models/requests/sign-up.request';
 import { UsersService } from 'src/users/users.service';
+import { TokenResponse } from '../models/response/token.response';
 
 @Controller('auth')
 export class AuthController {
@@ -17,24 +18,16 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.OK)
     @Post('sign-in')
-    public signIn(@Request() req) {
+    public signIn(@Request() req): Promise<TokenResponse> {
         console.log('request user: ', req.user);
         return this.authService.signIn(req.user);
     }
 
-    //@UseGuards(LocalAuthGuard)
     @HttpCode(HttpStatus.CREATED)
     @Post('sign-up')
     public async signUp(@Body() signUpRequest: SignUpRequest): Promise<void> {
         const signUpDto: SignUpDto = {...signUpRequest};
-        //const newUser = this.userService.signUp(signUpDto);
-
-        try {
-            await this.userService.signUp(signUpDto);
-        } catch (e: unknown) {
-            console.log('error here');
-            throw new BadRequestException();
-        }
+        const newUser = await this.userService.signUp(signUpDto);
     }
 
     // just for testing purpose

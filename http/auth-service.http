@@ -1,12 +1,19 @@
+### Sign in existing user
+
 POST http://localhost:3000/auth/sign-in HTTP/1.1
 content-type: application/json
 
 {
-    "username": "john.doe@example.com",
-    "password": "password123"
+    "username": "harry.weinfurth@example.com",
+    "password": "test"
 }
 
-###
+#{
+#    "username": "john.doe@example.com",
+#    "password": "password123"
+#}
+
+### Sign up new user
 
 POST http://localhost:3000/auth/sign-up HTTP/1.1
 content-type: application/json
@@ -16,11 +23,11 @@ content-type: application/json
     "password": "test"
 }
 
-###
+### Check for authorization
 
 GET http://localhost:3000/auth/profile HTTP/1.1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImpvaG4uZG9lQGV4YW1wbGUuY29tIiwic3ViIjoiYjU3MmQyY2UtMzU3Yy00NjBiLThiZjYtNzk3YWRiN2ZiNDJjIiwiaWF0IjoxNzMxMzM5Nzg2LCJleHAiOjE3MzEzNDAwMjZ9.un_IXea6Y56JFy0u1UkNNW4FjqoqMP3h8iwmcRmag3I
+Authorization: Bearer [TOKEN]
 
-###
+### Test for all users
 
 GET http://localhost:3000/users HTTP/1.1
