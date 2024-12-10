@@ -6,10 +6,9 @@ import { LocalStrategy } from './local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
-import { JwtStrategy } from './jwt.strategy';
+import { AccessTokenStrategy } from './access-token.strategy';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from '../entities/user.entity';
+import { RefreshTokenStrategy } from './refresh-token.strategy';
 
 @Module({
     imports: [
@@ -21,7 +20,7 @@ import { UserEntity } from '../entities/user.entity';
         })
     ],
     controllers: [AuthController],
-    providers: [AuthService, LocalStrategy, JwtStrategy, JwtAuthGuard, LocalStrategy],
+    providers: [AuthService, LocalStrategy, AccessTokenStrategy, RefreshTokenStrategy, JwtAuthGuard, LocalStrategy],
     exports: [JwtAuthGuard]
 })
 export class AuthModule { }

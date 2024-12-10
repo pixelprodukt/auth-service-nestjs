@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, Request, UseGuards } from '@nestjs/common';
 import { SignUpDto } from '../models/dtos/sign-up.dto';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -19,7 +19,6 @@ export class AuthController {
     @HttpCode(HttpStatus.OK)
     @Post('sign-in')
     public signIn(@Request() req): Promise<TokenResponse> {
-        console.log('request user: ', req.user);
         return this.authService.signIn(req.user);
     }
 
