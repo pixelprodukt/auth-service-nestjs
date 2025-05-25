@@ -5,14 +5,15 @@ import * as bcrypt from 'bcrypt';
 import { TokenResponse } from '../models/response/token.response';
 import { User } from '../models/domain/user';
 import { UserEntity } from '../entities/user.entity';
-import { jwtConstants } from './constants';
+import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class AuthService {
 
     constructor(
         private readonly usersService: UsersService,
-        private readonly jwtService: JwtService
+        private readonly jwtService: JwtService,
+        private readonly configService: ConfigService
     ) { }
 
     public async signIn(user: User): Promise<TokenResponse> {
@@ -50,7 +51,7 @@ export class AuthService {
                     email,
                 },
                 {
-                    secret: jwtConstants.tokenSecret,
+                    secret: this.configService.get<string>('TOKEN_SECRET'),
                     expiresIn: '15m', // TODO: Make expiration configurable
                 },
             ),
@@ -60,7 +61,7 @@ export class AuthService {
                     email,
                 },
                 {
-                    secret: jwtConstants.refreshSecret,
+                    secret: this.configService.get<string>('REFRESH_SECRET'),
                     expiresIn: '7d',
                 },
             )
