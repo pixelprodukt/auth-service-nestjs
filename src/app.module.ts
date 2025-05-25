@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -7,6 +8,9 @@ import { RoleEntity } from './entities/role.entity';
 
 @Module({
     imports: [
+        ConfigModule.forRoot({
+            isGlobal: true
+        }),
         AuthModule, 
         UsersModule,
         TypeOrmModule.forRoot({
@@ -15,7 +19,7 @@ import { RoleEntity } from './entities/role.entity';
             port: 5432,
             username: 'admin',
             password: 'admin',
-            database: 'auth-database',
+            database: 'auth',
             entities: [UserEntity, RoleEntity],
             // synchronize: true,
             // autoLoadEntities: true,

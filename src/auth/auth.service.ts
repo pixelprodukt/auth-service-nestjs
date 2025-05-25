@@ -3,7 +3,6 @@ import { JwtService } from '@nestjs/jwt';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcrypt';
 import { TokenResponse } from '../models/response/token.response';
-import { UserDto } from '../models/dtos/user.dto';
 import { User } from '../models/domain/user';
 import { UserEntity } from '../entities/user.entity';
 import { jwtConstants } from './constants';
@@ -21,9 +20,6 @@ export class AuthService {
 
         const tokens = await this.getTokens(user.id, user.email);
         return tokens;
-        /* return {
-            accessToken: this.jwtService.sign(payload),
-        }; */
     }
 
     public async validateUser(email: string, password: string): Promise<User | null> {
@@ -54,8 +50,8 @@ export class AuthService {
                     email,
                 },
                 {
-                    secret: jwtConstants.secret,
-                    expiresIn: '15m',
+                    secret: jwtConstants.tokenSecret,
+                    expiresIn: '15m', // TODO: Make expiration configurable
                 },
             ),
             this.jwtService.signAsync(

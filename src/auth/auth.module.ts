@@ -15,7 +15,7 @@ import { RefreshTokenStrategy } from './refresh-token.strategy';
         UsersModule,
         PassportModule,
         JwtModule.register({
-            secret: jwtConstants.secret,
+            secret: jwtConstants.tokenSecret,
             signOptions: { expiresIn: '240s' }
         })
     ],
