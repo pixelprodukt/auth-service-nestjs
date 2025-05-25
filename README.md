@@ -1,17 +1,12 @@
-## Setup docker container
+## Setup database
 
-Start the docker container for the postgres database. The init script will create the tables and seed them with some test data.
+Easiest way is to checkout the (postgres-dbs-docker)[https://github.com/pixelprodukt/postgres-dbs-docker] repository and run
 
 ```bash
 $ docker compose up
 ```
+It will setup the needed database and fill it with a few datasets. Alternativley, you can use the 02-auth-schema.sql and run it with your own database. Just don't forget to change the ports so nestjs will be able to connect to your database (TODO: Setup config for database connection in .env file).
 
-Docker will also start an instance of Adminer (https://www.adminer.org/de/) under http://localhost:8080. Select `PostgreSQL`, credentials are:
-```
-user: admin
-password: admin
-database: auth-database
-```
 
 
 ## Compile and run the project
