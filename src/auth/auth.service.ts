@@ -6,6 +6,7 @@ import { TokenResponse } from '../models/response/token.response';
 import { User } from '../models/domain/user';
 import { UserEntity } from '../entities/user.entity';
 import { ConfigService } from '@nestjs/config';
+import * as fs from 'fs';
 
 @Injectable()
 export class AuthService {
@@ -51,8 +52,8 @@ export class AuthService {
                     email,
                 },
                 {
-                    secret: this.configService.get<string>('TOKEN_SECRET'),
-                    expiresIn: '15m', // TODO: Make expiration configurable
+                    privateKey: fs.readFileSync(this.configService.get('JWT_ACCESS_TOKEN_PRIVATE_KEY_PATH'), 'utf8'),
+                    expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION')
                 },
             ),
             this.jwtService.signAsync(
@@ -61,8 +62,8 @@ export class AuthService {
                     email,
                 },
                 {
-                    secret: this.configService.get<string>('REFRESH_SECRET'),
-                    expiresIn: '7d',
+                    privateKey: fs.readFileSync(this.configService.get('JWT_REFRESH_TOKEN_PRIVATE_KEY_PATH'), 'utf8'),
+                    expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME')
                 },
             )
         ]);

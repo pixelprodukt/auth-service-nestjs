@@ -9,6 +9,7 @@ import { AccessTokenStrategy } from './access-token.strategy';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { RefreshTokenStrategy } from './refresh-token.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import * as fs from 'fs';
 
 @Module({
     imports: [
@@ -18,9 +19,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
             imports: [ConfigModule],
             inject: [ConfigService],
             useFactory: async (configService: ConfigService) => ({
-                secret: configService.get<string>('TOKEN_SECRET'),
+                privateKey: fs.readFileSync(configService.get('JWT_ACCESS_TOKEN_PRIVATE_KEY_PATH'), 'utf8'),
+                publicKey: fs.readFileSync(configService.get('JWT_ACCESS_TOKEN_PUBLIC_KEY_PATH'), 'utf8'),
                 signOptions: { 
-                    expiresIn: configService.get<string>('TOKEN_EXPIRATION') || '3600s'
+                    expiresIn: configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION') || '3600s',
+                    algorithm: 'RS256'
                 }
             })
         })
