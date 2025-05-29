@@ -53,7 +53,8 @@ export class AuthService {
                 },
                 {
                     privateKey: fs.readFileSync(this.configService.get('JWT_ACCESS_TOKEN_PRIVATE_KEY_PATH'), 'utf8'),
-                    expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION')
+                    expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION'),
+                    keyid: 'access_token'
                 },
             ),
             this.jwtService.signAsync(
@@ -63,7 +64,8 @@ export class AuthService {
                 },
                 {
                     privateKey: fs.readFileSync(this.configService.get('JWT_REFRESH_TOKEN_PRIVATE_KEY_PATH'), 'utf8'),
-                    expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME')
+                    expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
+                    keyid: 'refresh_token'
                 },
             )
         ]);

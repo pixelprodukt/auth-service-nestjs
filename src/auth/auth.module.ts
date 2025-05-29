@@ -10,6 +10,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { RefreshTokenStrategy } from './refresh-token.strategy';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as fs from 'fs';
+import { WellKnownController } from './well-known.controller';
 
 @Module({
     imports: [
@@ -28,7 +29,7 @@ import * as fs from 'fs';
             })
         })
     ],
-    controllers: [AuthController],
+    controllers: [AuthController, WellKnownController],
     providers: [AuthService, LocalStrategy, AccessTokenStrategy, RefreshTokenStrategy, JwtAuthGuard, LocalStrategy],
     exports: [JwtAuthGuard]
 })
