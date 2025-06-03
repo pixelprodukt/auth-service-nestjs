@@ -38,5 +38,17 @@ GET http://localhost:3000/.well-known/jwks.json HTTP/1.1
 
 ###
 
-GET http://localhost:8084/api/v1
+GET http://localhost:8084/expenses?from=2025-06-02&to=2025-06-30
 Authorization: Bearer [TOKEN]
+
+###
+
+POST http://localhost:8084/expenses
+Authorization: Bearer [TOKEN]
+content-type: application/json
+
+{
+    "amount": 78.87,
+    "description": "hello fresh",
+    "spentAt": "2025-06-03T17:38:16+00:00"
+}
